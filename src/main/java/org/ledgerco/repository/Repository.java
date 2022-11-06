@@ -5,27 +5,23 @@ import org.ledgerco.model.PaymentDetails;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 public class Repository {
-    private static Repository repository;
     private final Map<String, Map<String, LoanDetails>> loanMap;
     private final Map<String, Map<String, PaymentDetails>> paymentMap;
 
-    private Repository(Map<String, Map<String, LoanDetails>> loanMap, Map<String, Map<String, PaymentDetails>> paymentMap) {
+    public Repository(Map<String, Map<String, LoanDetails>> loanMap, Map<String, Map<String, PaymentDetails>> paymentMap) {
         this.loanMap = loanMap;
         this.paymentMap = paymentMap;
     }
 
-    public static Repository getRepository() {
-        if (repository == null) {
-            repository = new Repository(new HashMap<>(), new HashMap<>());
+    public Optional<LoanDetails> getLoanDetails(String bankName, String customerName) {
+        if (this.loanMap.containsKey(bankName)) {
+            Map<String, LoanDetails> bankLoans = this.loanMap.get(bankName);
+            return Optional.ofNullable(bankLoans.get(customerName));
         }
-        return repository;
-    }
-
-    public LoanDetails getLoanDetails(String bankName, String customerName) {
-        Map<String, LoanDetails> bankLoans = this.loanMap.get(bankName);
-        return bankLoans.get(customerName);
+        return Optional.empty();
     }
 
     public void addLoan(String bankName, LoanDetails loanDetails) {
@@ -50,8 +46,11 @@ public class Repository {
         }
     }
 
-    public PaymentDetails getPaymentDetails(String bankName, String customerName) {
-        Map<String, PaymentDetails> payments = this.paymentMap.get(bankName);
-        return payments.get(customerName);
+    public Optional<PaymentDetails> getPaymentDetails(String bankName, String customerName) {
+        if (this.paymentMap.containsKey(bankName)) {
+            Map<String, PaymentDetails> payments = this.paymentMap.get(bankName);
+            return Optional.ofNullable(payments.get(customerName));
+        }
+        return Optional.empty();
     }
 }
