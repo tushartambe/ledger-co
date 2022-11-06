@@ -3,6 +3,7 @@ package org.ledgerco.service;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.ledgerco.Exception.LoanDetailsNotFoundException;
 import org.ledgerco.model.LoanDetails;
 import org.ledgerco.model.PaymentDetails;
 import org.ledgerco.repository.Repository;
@@ -13,6 +14,7 @@ import java.io.PrintStream;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -38,7 +40,6 @@ class BalanceServiceTest {
     @Test
     void shouldReturnBalanceForLoanWithZeroInstallments() {
         LoanDetails loanDetails = new LoanDetails("Elon", 2000, 2, 2);
-        when(repository.getLoanDetails(any(), any())).thenReturn(Optional.of(loanDetails));
         when(repository.getLoanDetails(any(), any())).thenReturn(Optional.of(loanDetails));
 
         balanceService.process("MBI", "Elon", 0);
@@ -69,5 +70,12 @@ class BalanceServiceTest {
 
         verify(repository, times(1)).getLoanDetails(any(), any());
         assertEquals("IDIDI Dale 3652 4", outContent.toString().trim());
+    }
+
+    @Test
+    void shouldThrowExceptionIfLoanDetailsNotFound() {
+        when(repository.getLoanDetails(any(), any())).thenReturn(Optional.empty());
+
+        assertThrows(LoanDetailsNotFoundException.class, () -> balanceService.process("MBI", "Elon", 0));
     }
 }
