@@ -42,7 +42,7 @@ class BalanceServiceTest {
         LoanDetails loanDetails = new LoanDetails("Elon", 2000, 2, 2);
         when(repository.getLoanDetails(any(), any())).thenReturn(Optional.of(loanDetails));
 
-        balanceService.process("MBI", "Elon", 0);
+        balanceService.showBalance("MBI", "Elon", 0);
 
         verify(repository, times(1)).getLoanDetails(any(), any());
         assertEquals("MBI Elon 0 24", outContent.toString().trim());
@@ -53,7 +53,7 @@ class BalanceServiceTest {
         LoanDetails loanDetails = new LoanDetails("Dale", 10000, 5, 4);
         when(repository.getLoanDetails(any(), any())).thenReturn(Optional.of(loanDetails));
 
-        balanceService.process("IDIDI", "Dale", 5);
+        balanceService.showBalance("IDIDI", "Dale", 5);
 
         verify(repository, times(1)).getLoanDetails(any(), any());
         assertEquals("IDIDI Dale 1000 55", outContent.toString().trim());
@@ -66,7 +66,7 @@ class BalanceServiceTest {
         when(repository.getLoanDetails(any(), any())).thenReturn(Optional.of(loanDetails));
         when(repository.getPaymentDetails(any(), any())).thenReturn(Optional.of(paymentDetails));
 
-        balanceService.process("IDIDI", "Dale", 6);
+        balanceService.showBalance("IDIDI", "Dale", 6);
 
         verify(repository, times(1)).getLoanDetails(any(), any());
         assertEquals("IDIDI Dale 3652 4", outContent.toString().trim());
@@ -76,6 +76,6 @@ class BalanceServiceTest {
     void shouldThrowExceptionIfLoanDetailsNotFound() {
         when(repository.getLoanDetails(any(), any())).thenReturn(Optional.empty());
 
-        assertThrows(LoanDetailsNotFoundException.class, () -> balanceService.process("MBI", "Elon", 0));
+        assertThrows(LoanDetailsNotFoundException.class, () -> balanceService.showBalance("MBI", "Elon", 0));
     }
 }

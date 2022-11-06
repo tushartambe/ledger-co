@@ -14,7 +14,7 @@ public class BalanceService {
         this.repository = repository;
     }
 
-    public void process(String bank, String customer, Integer numberOfInstallmentsPaid) {
+    public void showBalance(String bank, String customer, Integer numberOfInstallmentsPaid) {
         Optional<LoanDetails> loanDetailsOptional = repository.getLoanDetails(bank, customer);
         if (loanDetailsOptional.isEmpty()) {
             throw new LoanDetailsNotFoundException("Loan details not found for bank : " + bank + "and cutomer : " + customer);

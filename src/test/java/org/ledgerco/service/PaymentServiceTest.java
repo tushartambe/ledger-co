@@ -25,7 +25,7 @@ class PaymentServiceTest {
 
         doNothing().when(repository).addPayment(any(), any());
 
-        paymentService.process("Big Bank", paymentDetails);
+        paymentService.recordPayment("Big Bank", paymentDetails);
 
         verify(repository, times(1)).addPayment("Big Bank", paymentDetails);
     }

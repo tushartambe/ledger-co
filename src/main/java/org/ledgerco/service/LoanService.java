@@ -10,7 +10,7 @@ public class LoanService {
         this.repository = repository;
     }
 
-    public void process(String bank, LoanDetails loanDetails) {
+    public void recordLoan(String bank, LoanDetails loanDetails) {
         repository.addLoan(bank, loanDetails);
     }
 

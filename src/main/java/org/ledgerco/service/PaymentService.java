@@ -10,7 +10,7 @@ public class PaymentService {
         this.repository = repository;
     }
 
-    public void process(String bank, PaymentDetails paymentDetails) {
+    public void recordPayment(String bank, PaymentDetails paymentDetails) {
         repository.addPayment(bank, paymentDetails);
     }
 

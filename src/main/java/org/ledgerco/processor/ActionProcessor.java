@@ -18,16 +18,16 @@ public class ActionProcessor {
             case LOAN:
                 LoanService loanService = new LoanService(repository);
                 LoanDetails loanDetails = new LoanDetails(args[2], Integer.parseInt(args[3]), Integer.parseInt(args[4]), Integer.parseInt(args[5]));
-                loanService.process(args[1], loanDetails);
+                loanService.recordLoan(args[1], loanDetails);
                 break;
             case BALANCE:
                 BalanceService balanceService = new BalanceService(repository);
-                balanceService.process(args[1], args[2], Integer.parseInt(args[3]));
+                balanceService.showBalance(args[1], args[2], Integer.parseInt(args[3]));
                 break;
             case PAYMENT:
                 PaymentDetails paymentDetails = new PaymentDetails(args[2], Integer.parseInt(args[3]), Integer.parseInt(args[4]));
                 PaymentService paymentService = new PaymentService(repository);
-                paymentService.process(args[1], paymentDetails);
+                paymentService.recordPayment(args[1], paymentDetails);
                 break;
         }
     }
