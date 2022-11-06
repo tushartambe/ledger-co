@@ -4,7 +4,6 @@ import org.ledgerco.model.LoanDetails;
 import org.ledgerco.repository.Repository;
 
 public class LoanService {
-    //    private static LoanService loanService;
     private final Repository repository;
 
     public LoanService(Repository repository) {
@@ -15,11 +14,4 @@ public class LoanService {
         repository.addLoan(bank, loanDetails);
     }
 
-//    public static LoanService getLoanService() {
-//        if (loanService == null) {
-//            Repository repository = Repository.getRepository();
-//            loanService = new LoanService(repository);
-//        }
-//        return loanService;
-//    }
 }

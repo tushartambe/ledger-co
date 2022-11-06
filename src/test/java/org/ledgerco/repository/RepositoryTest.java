@@ -2,8 +2,10 @@ package org.ledgerco.repository;
 
 import org.junit.jupiter.api.Test;
 import org.ledgerco.model.LoanDetails;
+import org.ledgerco.model.PaymentDetails;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class RepositoryTest {
 
@@ -21,5 +23,15 @@ class RepositoryTest {
 
         LoanDetails actualLoanDetails = repository.getLoanDetails("Some Big Bank", "Elon musk");
         assertEquals(expectedLoanDetails, actualLoanDetails);
+    }
+
+    @Test
+    void shouldAddPaymentDetailsToRepository() {
+        Repository repository = Repository.getRepository();
+        PaymentDetails expectedPaymentDetails = new PaymentDetails("Elon musk", 1000, 1);
+        repository.addPayment("Some Big Bank", expectedPaymentDetails);
+
+        PaymentDetails actualPaymentDetails = repository.getPaymentDetails("Some Big Bank", "Elon musk");
+        assertEquals(expectedPaymentDetails, actualPaymentDetails);
     }
 }

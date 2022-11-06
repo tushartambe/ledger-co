@@ -2,9 +2,11 @@ package org.ledgerco.processor;
 
 import org.ledgerco.constant.ActionType;
 import org.ledgerco.model.LoanDetails;
+import org.ledgerco.model.PaymentDetails;
 import org.ledgerco.repository.Repository;
 import org.ledgerco.service.BalanceService;
 import org.ledgerco.service.LoanService;
+import org.ledgerco.service.PaymentService;
 
 public class ActionProcessor {
     public void process(String input) {
@@ -23,6 +25,9 @@ public class ActionProcessor {
                 balanceService.process(args[1], args[2], Integer.parseInt(args[3]));
                 break;
             case PAYMENT:
+                PaymentDetails paymentDetails = new PaymentDetails(args[2], Integer.parseInt(args[3]), Integer.parseInt(args[4]));
+                PaymentService paymentService = new PaymentService(repository);
+                paymentService.process(args[1], paymentDetails);
                 break;
         }
     }

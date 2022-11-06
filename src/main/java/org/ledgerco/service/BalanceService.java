@@ -1,10 +1,9 @@
 package org.ledgerco.service;
 
-import org.ledgerco.repository.Repository;
 import org.ledgerco.model.LoanDetails;
+import org.ledgerco.repository.Repository;
 
 public class BalanceService {
-    //    private static BalanceService balanceService;
     private final Repository repository;
 
     public BalanceService(Repository repository) {
@@ -31,12 +30,4 @@ public class BalanceService {
 
         System.out.println(entry);
     }
-
-//    public static BalanceService getBalanceService() {
-//        if (balanceService == null) {
-//            Repository repository = Repository.getRepository();
-//            balanceService = new BalanceService(repository);
-//        }
-//        return balanceService;
-//    }
 }

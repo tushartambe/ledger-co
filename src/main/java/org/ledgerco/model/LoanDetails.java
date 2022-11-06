@@ -1,13 +1,13 @@
 package org.ledgerco.model;
 
 public class LoanDetails {
-    public final String name;
+    public final String customerName;
     public final Integer principalAmount;
     public final Integer numberOfYears;
     public final Integer interestRate;
 
-    public LoanDetails(String name, Integer principalAmount, Integer numberOfYears, Integer interestRate) {
-        this.name = name;
+    public LoanDetails(String customerName, Integer principalAmount, Integer numberOfYears, Integer interestRate) {
+        this.customerName = customerName;
         this.principalAmount = principalAmount;
         this.numberOfYears = numberOfYears;
         this.interestRate = interestRate;
