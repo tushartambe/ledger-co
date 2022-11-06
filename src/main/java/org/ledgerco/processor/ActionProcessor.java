@@ -8,14 +8,12 @@ import org.ledgerco.service.BalanceService;
 import org.ledgerco.service.LoanService;
 import org.ledgerco.service.PaymentService;
 
-import java.util.HashMap;
-
 public class ActionProcessor {
     public void process(String input) {
         String[] args = input.split(" ");
         ActionType action = ActionType.valueOf(args[0]);
 
-        Repository repository = new Repository(new HashMap<>(), new HashMap<>());
+        Repository repository = Repository.getRepository();
         switch (action) {
             case LOAN:
                 LoanService loanService = new LoanService(repository);

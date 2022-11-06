@@ -1,25 +1,30 @@
 package org.ledgerco.repository;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.ledgerco.model.LoanDetails;
 import org.ledgerco.model.PaymentDetails;
 
-import java.util.HashMap;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class RepositoryTest {
 
+    Repository repository;
+
+    @BeforeEach
+    void setUp() {
+        repository = Repository.getRepository();
+    }
+
     @Test
     void shouldCreateEmptyRepository() {
-        Repository repository = new Repository(new HashMap<>(), new HashMap<>());
         assertNotNull(repository);
     }
 
     @Test
     void shouldReturnLoanDetailsFromRepository() {
-        Repository repository = new Repository(new HashMap<>(), new HashMap<>());
         LoanDetails expectedLoanDetails = new LoanDetails("Elon musk", 1000, 1, 10);
         repository.addLoan("Some Big Bank", expectedLoanDetails);
 
@@ -31,7 +36,6 @@ class RepositoryTest {
 
     @Test
     void shouldReturnPaymentDetailsFromRepository() {
-        Repository repository = new Repository(new HashMap<>(), new HashMap<>());
         PaymentDetails expectedPaymentDetails = new PaymentDetails("Elon musk", 1000, 1);
         repository.addPayment("Some Big Bank", expectedPaymentDetails);
 
@@ -43,18 +47,14 @@ class RepositoryTest {
 
     @Test
     void shouldReturnNothingIfLoanDetailsNotPresent() {
-        Repository repository = new Repository(new HashMap<>(), new HashMap<>());
-
-        Optional<LoanDetails> actualLoanDetails = repository.getLoanDetails("Some Big Bank", "Elon musk");
+        Optional<LoanDetails> actualLoanDetails = repository.getLoanDetails("Some Other Big Bank", "Jeff bezos");
 
         assertEquals(Optional.empty(), actualLoanDetails);
     }
 
     @Test
     void shouldReturnNothingIfPaymentDetailsNotPresent() {
-        Repository repository = new Repository(new HashMap<>(), new HashMap<>());
-
-        Optional<PaymentDetails> actualPaymentDetails = repository.getPaymentDetails("Some Big Bank", "Elon musk");
+        Optional<PaymentDetails> actualPaymentDetails = repository.getPaymentDetails("Some Other Big Bank", "Jeff bezos");
 
         assertEquals(Optional.empty(), actualPaymentDetails);
     }

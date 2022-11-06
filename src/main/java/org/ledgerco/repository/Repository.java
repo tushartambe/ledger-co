@@ -8,12 +8,20 @@ import java.util.Map;
 import java.util.Optional;
 
 public class Repository {
+    private static Repository repository;
     private final Map<String, Map<String, LoanDetails>> loanMap;
     private final Map<String, Map<String, PaymentDetails>> paymentMap;
 
-    public Repository(Map<String, Map<String, LoanDetails>> loanMap, Map<String, Map<String, PaymentDetails>> paymentMap) {
+    private Repository(Map<String, Map<String, LoanDetails>> loanMap, Map<String, Map<String, PaymentDetails>> paymentMap) {
         this.loanMap = loanMap;
         this.paymentMap = paymentMap;
+    }
+
+    public static Repository getRepository() {
+        if (repository == null) {
+            repository = new Repository(new HashMap<>(), new HashMap<>());
+        }
+        return repository;
     }
 
     public Optional<LoanDetails> getLoanDetails(String bankName, String customerName) {
